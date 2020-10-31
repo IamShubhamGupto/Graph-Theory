@@ -16,7 +16,7 @@ struct graph{
     int v;
     int** adjmat;
     vertex_list_t* list;
-    int max_colors;
+    int colored;
 };
 typedef struct graph graph_t;
 vertex_list_t* initialize_list(){
@@ -53,7 +53,7 @@ graph_t* initialize_graph(int V){
         }
     }
     graph->list = initialize_list();
-    graph->max_colors = 0;
+    graph->colored = 0;
     return graph;
 }
 vertex_t* initialize_vertex(int id, int neighbours){
@@ -129,6 +129,7 @@ vertex_t** build_array(graph_t* graph){
     }
     return array;
 }
+
 void color_graph(graph_t* graph, vertex_t** array){
    int i,j,u,v,k;
    int color = 0;
@@ -143,7 +144,7 @@ void color_graph(graph_t* graph, vertex_t** array){
         }
         //give color
         array[i]->color = color;
-        for(j = 0; j < graph->v; j++){
+        for(j = i+1; j < graph->v; j++){
             if(!graph->adjmat[array[i]->id][array[j]->id] && array[j]->color == -1){
                 array[j]->color = color;
                 //check neighbours
@@ -166,6 +167,25 @@ void color_graph(graph_t* graph, vertex_t** array){
    }
 }
 
+/*
+void color_graph(graph_t* graph, vertex_t** array){
+    int i,j,k;
+    int color = 0;
+    while(graph->colored < graph->v){
+        for(i = 0; i < graph->v; i++){
+            if(array[i]->color == -1){
+                break;
+            }
+        }
+        array[i]->color = color;
+        for(j = 0; j < graph->v; j++){
+            if(!graph->adjmat[array[i]->id][array[j]->id] && array[j]->color == -1){
+
+            }
+        }
+    }
+}
+*/
 int main(){
     int V,E;
     int u,v;
