@@ -1,2 +1,2 @@
 # Graph-Theory
-Repository of commonly known graph theory algorithms implemented UE18CS323
+Assignment files submitted for the course UE18CS323
